@@ -59,9 +59,7 @@ public class ChildrenBlockingLock extends ChildrenNodeLock {
     @Override
     protected boolean isLockSuccess() {
         // 是否监控子节点变化，会有羊群效应
-        boolean monitorChildrenEvent = false;
-
-        boolean lockSuccess;
+        boolean lockSuccess=false;
         try {
             while (true) {
                 String prevElementName = getPreElementName();
@@ -71,22 +69,12 @@ public class ChildrenBlockingLock extends ChildrenNodeLock {
                     break;
                 } else {
                     // 有更小的节点，说明当前节点没抢到锁，注册前一个节点的监听。
-                    if (monitorChildrenEvent) {
-                        log.trace("{} 监控 {} 子节点变化事件", elementNodeName, guidNodeName);
-                        getZooKeeper().getChildren(this.guidNodeName, true);
-                    } else {
-                        log.trace("{} 监控 {} 的事件", elementNodeName, prevElementName);
-                        getZooKeeper().exists(this.guidNodeName + "/" + prevElementName, true);
-                    }
+                    getZooKeeper().exists(this.guidNodeName + "/" + prevElementName, true);
                     synchronized (mutex) {
-                        // 最多一秒
-                        mutex.wait(1000);
-                        if (monitorChildrenEvent) {
-                            log.trace("{} 监控的 {} 有子节点变化", elementNodeName, guidNodeName);
-                        } else {
-                            log.trace("{} 监控的 {} 被删除", elementNodeName, prevElementName);
-                        }
+                        mutex.wait();
+                        log.info("{} 被删除，看看是不是轮到自己了", prevElementName);
                     }
+
                 }
             }
         } catch (KeeperException e) {
