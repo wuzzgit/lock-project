@@ -1,7 +1,7 @@
 package com.wuzz.lock;
 
 /**
- * 基于zk实现分布式锁测试类
+ * 基于zk实现分布式锁测试类 首选（比较好的）
  * Hello world!
  * 参考链接：https://www.cnblogs.com/codestory/p/11387116.html
  */
