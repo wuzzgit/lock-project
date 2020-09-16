@@ -14,7 +14,7 @@ import java.util.concurrent.CountDownLatch;
  */
 public class HighPerformanceZkLock extends AbstractLock {
 
-    private static final String PATH = "/highPerformance_zklock";
+    private static final String PATH = "/my_lock";
     //当前节点路径
     private String currentPath;
     //前一个节点的路径

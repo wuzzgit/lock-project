@@ -9,7 +9,7 @@ import org.I0Itec.zkclient.ZkClient;
  */
 public abstract class AbstractLock {
     //zk地址和端口
-    public static final String ZK_ADDR = "192.168.0.230:2181";
+    public static final String ZK_ADDR = "localhost:2181";
     //超时时间
     public static final int SESSION_TIMEOUT = 10000;
     //创建zk

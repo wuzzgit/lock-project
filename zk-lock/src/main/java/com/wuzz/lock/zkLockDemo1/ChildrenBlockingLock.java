@@ -58,6 +58,7 @@ public class ChildrenBlockingLock extends ChildrenNodeLock {
      */
     @Override
     protected boolean isLockSuccess() {
+        //轮询机制
         // 是否监控子节点变化，会有羊群效应
         boolean lockSuccess=false;
         try {
@@ -69,6 +70,7 @@ public class ChildrenBlockingLock extends ChildrenNodeLock {
                     break;
                 } else {
                     // 有更小的节点，说明当前节点没抢到锁，注册前一个节点的监听。
+                    //exists 方法：检测节点是否存在 watch:true 代表注册监听
                     getZooKeeper().exists(this.guidNodeName + "/" + prevElementName, true);
                     synchronized (mutex) {
                         mutex.wait();

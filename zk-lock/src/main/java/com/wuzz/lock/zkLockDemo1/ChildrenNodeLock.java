@@ -81,6 +81,7 @@ public abstract class ChildrenNodeLock extends ZooKeeperBase implements ZooKeepe
 
     /**
      * 获取当前节点的前一个节点，如果为空表示自己是第一个
+     * 不为空返回
      *
      * @return
      * @throws KeeperException
