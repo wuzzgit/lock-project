@@ -1,7 +1,6 @@
 package com.wuzz.lock;
 
 import com.wuzz.lock.zkLockDemo3.DistributedLock;
-import org.apache.logging.log4j.core.config.plugins.util.ResolverUtil;
 
 import java.util.concurrent.locks.Lock;
 
